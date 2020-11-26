@@ -1,0 +1,30 @@
+---
+title: "Final Project proposal"
+author: "Hongfan Chen"
+date: "2020/11/25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### My proposed question
+
+Do commercial buildings open 24 hours have larger average work forces than those that are not?  Does this depend on principal activity of the building?
+
+### Data sets and variables I will use
+
+I will use 2012 US Commercial Building Energy Consumption Survey (CBECS) data.    
+Here's the variables that I choose: `PUBID`, `NWKER`, `OPEN24`, `SQFTC`, `PBA`, `FINALWT`, `FINALWT1-FINALWT197`
+
+### The analysis I plan to do
+
+1. Divide the data into two groups, by `OPEN24`.     
+2. Using replicate weights and final weights to compute the average number of employees and construct 95% confidence intervals, by Square footage category and Principal building activity, so we can control the size of the building and see if the difference is related to how the buildings are used.    
+3. Then compute the difference between the two groups.    
+4. Construct a table and a plot to illustrate this question.
+
+### The statistical software I will use
+
+I will do this project in R.

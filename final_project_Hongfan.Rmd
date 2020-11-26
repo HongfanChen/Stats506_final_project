@@ -1,0 +1,105 @@
+---
+title: "Final Project, <br>Stats 506, F20"
+author: "Hongfan Chen, chenhf@umich.edu"
+date: "2020/11/26"
+output: 
+  html_document:
+    code_folding: hide
+    theme: united
+    highlight: pygments
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#### README
+
+This is a write up to Final Project for Stats 506 in Fall 2020.
+
+To build this document, run 
+`Rscript -e "rmarkdown::render('./final_project_Hongfan.Rmd')"` at the command line.   
+
+### 1. Introduction
+
+#### Question
+
+  **Do commercial buildings open 24 hours have larger average work forces than those that are not?  Does this depend on square footage category and principal activity of the building?**    
+    
+  This question is interesting because the outcome may challege our common sense.    
+     
+  Since we want to figure out whether differences we might observe are reflective of how the buildings are used (e.g. retail, office space, etc) or of differences in size, we stratify the data by square footage category and principal building activity to facilitate a simple and direct comparison.
+  
+### 2. Data / Methods
+
+##### Data sets and variables
+
+I will use 2012 US Commercial Building Energy Consumption Survey(
+[CBECS](https://www.eia.gov/consumption/commercial/data/2012/index.php?view=microdata)) data.    
+Here's the variables that I choose: `PUBID`, `NWKER`, `OPEN24`, `SQFTC`, `PBA`, `FINALWT`, `FINALWT1-FINALWT197`.  
+
+For more information about the dataset, please read [document](https://www.eia.gov/consumption/commercial/data/2012/pdf/user_guide_public_use_aug2016.pdf)
+    
+For more information about the code, please visit my Github 
+[REPO](https://github.com/HongfanChen/Stats506_final_project)
+
+##### The analysis step by step
+
+1. Divide the data into two groups, by `OPEN24`.     
+2. Using replicate weights and final weights to compute the average number of employees and construct 95% confidence intervals, by Square footage category and Principal building activity, so we can control the size of the building and see if the difference is related to how the buildings are used.    
+3. Then compute the difference between the two groups.  
+4. Filter the observations to ensure a one-to-one comparison between the buildings that have the same sqaure footage category and same principal building activity but different status of `OPEN24`  
+5. Construct a table and a plot to illustrate this question.
+
+**NOTE**:  
+*1. Buildings that have only one status of `OPEN24` have been removed from the final analysis, because we want a 1-1 comparison, and these buildings can not be used for computing difference.  
+2. Beware of the replicate weights when using them as denominator. They can be zero because of the jackknife method of estimating the standard error.*
+
+### 3. Results
+
+#### Code Organization
+
+There is only one file needed here to perform analysis: `final.R`
+
+```{r analysis, message = FALSE, warning=FALSE}
+source('./final.R')
+```
+
+#### TABLE: Average Work Forces and Difference
+
+```{r complete_table, fig.cap = cap}
+DT::datatable(tab)
+cap = paste0(
+"**Table 1.** *Average work forces and difference of two status.*",
+" Values round off to 3 decimal digit, with 95% confidence intervals, ",
+"grouped by square footage category.")
+```
+
+#### PLOT: Difference of Average work forces. {.tabset .tabset-fade .tabset-pills}
+
+For a better visualization of values, I divide the data into three subsets by square footage category, since values in some groups are significantly larger than the other.
+
+##### First Group
+
+```{r plot_1}
+knitr::include_graphics("./graph/1.png")
+```
+
+##### Second Group
+
+```{r plot_2}
+knitr::include_graphics("./graph/2.png")
+```
+
+### 4. Conclusion / Discussion
+
+##### Conclusion
+
+From the table and graph above, we conclude that the answer for the question is: **It depends.**  
+When buildings are open 24 hours, *Laboratory, public assembly, strip shopping mall, vacant, and nonrefrigerated warehouse* have more work forces, while buildings used for *public order and safety, education, outpatient health care* have less work forces. Average work forces in scenarios like *service, retail or office* seems to be not related with whether buildings are open 24 hours or not.
+
+And in some places, number of employees is related with square footage. For example, when the size of buildings are big, buildings hold activity for *religious worship* have more work forces if they are open 24 hours, but this do not happen when the size of buildings are small.
+
+##### Discussion
+
+From my analysis, the average work forces seems to be affected by more factors. Things are much more complicated than we thought, the variances are large among many buildings, so the outcome may be incorrect unless we have more observations.
