@@ -1,7 +1,7 @@
 ---
 title: "Final Project, <br>Stats 506, F20"
 author: "Hongfan Chen, chenhf@umich.edu"
-date: "2020/11/26"
+date: "2020/12/02"
 output: 
   html_document:
     code_folding: hide
@@ -18,7 +18,10 @@ knitr::opts_chunk$set(echo = TRUE)
 This is a write up to Final Project for Stats 506 in Fall 2020.
 
 To build this document, run 
-`Rscript -e "rmarkdown::render('./final_project_Hongfan.Rmd')"` at the command line.   
+`Rscript -e "rmarkdown::render('./final_project_Hongfan.Rmd')"` at the command line.    
+  
+For more information about the code, please visit my Github 
+[REPO](https://github.com/HongfanChen/Stats506_final_project)
 
 ### 1. Introduction
 
@@ -39,9 +42,6 @@ I will use 2012 US Commercial Building Energy Consumption Survey(
 Here's the variables that I choose: `PUBID`, `NWKER`, `OPEN24`, `SQFTC`, `PBA`, `FINALWT`, `FINALWT1-FINALWT197`.  
 
 For more information about the dataset, please read [document](https://www.eia.gov/consumption/commercial/data/2012/pdf/user_guide_public_use_aug2016.pdf)
-    
-For more information about the code, please visit my Github 
-[REPO](https://github.com/HongfanChen/Stats506_final_project)
 
 ##### The analysis step by step
 
@@ -68,11 +68,11 @@ source('./final.R')
 #### TABLE: Average Work Forces and Difference
 
 ```{r complete_table, fig.cap = cap}
-DT::datatable(tab)
 cap = paste0(
 "**Table 1.** *Average work forces and difference of two status.*",
 " Values round off to 3 decimal digit, with 95% confidence intervals, ",
 "grouped by square footage category.")
+DT::datatable(tab)
 ```
 
 #### PLOT: Difference of Average work forces. {.tabset .tabset-fade .tabset-pills}
