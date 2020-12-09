@@ -103,6 +103,6 @@ When buildings are open 24 hours, **Laboratory, public assembly, strip shopping 
 
 In some places, the average work forces are related with square footage. Big buildings hold activity for *religious worship* requires more work forces if they are open 24 hours, but this isn't true when buildings are small.
   
-#### **LimTation**
+#### **Limitation**
 
 In real life, the average work forces would be affected by more **factors**. Things are much more complicated than what data shows, the variances are large among many buildings, so the outcome may be incorrect unless we have more observations.
