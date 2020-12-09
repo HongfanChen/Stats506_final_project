@@ -1,7 +1,7 @@
 ---
 title: "Final Project, <br>Stats 506, F20"
 author: "Hongfan Chen, chenhf@umich.edu"
-date: "2020/12/02"
+date: "2020/12/09"
 output: 
   html_document:
     code_folding: hide
@@ -25,12 +25,11 @@ For more information about the code, please visit my Github
 
 ### 1. Introduction
 
-#### Question
+People usually think commercial buildings open 24 hours would need more work forces to keep the building running. However, is that really so? I decide to answer this question using 2012 CBECS data and let the evidence speak.  
+Here's my question:
 
-  **Do commercial buildings open 24 hours have larger average work forces than those that are not?  Does this depend on square footage category and principal activity of the building?**    
+> **Do commercial buildings open 24 hours have larger average work forces than those that are not?  Does this depend on square footage category and principal activity of the building?**    
     
-  This question is interesting because the outcome may challege our common sense.    
-     
   Since we want to figure out whether differences we might observe are reflective of how the buildings are used (e.g. retail, office space, etc) or of differences in size, we stratify the data by square footage category and principal building activity to facilitate a simple and direct comparison.
   
 ### 2. Data / Methods
@@ -41,19 +40,24 @@ I will use 2012 US Commercial Building Energy Consumption Survey(
 [CBECS](https://www.eia.gov/consumption/commercial/data/2012/index.php?view=microdata)) data.    
 Here's the variables that I choose: `PUBID`, `NWKER`, `OPEN24`, `SQFTC`, `PBA`, `FINALWT`, `FINALWT1-FINALWT197`.  
 
-For more information about the dataset, please read [document](https://www.eia.gov/consumption/commercial/data/2012/pdf/user_guide_public_use_aug2016.pdf)
+##### The analysis
 
-##### The analysis step by step
+“Average work forces was computed for each commercial building and compared visually by square footage category and principal activity of the building. All estimates are given with 95% confidence intervals computed using the balance repeated replicate weights as described in the [documentation](https://www.eia.gov/consumption/commercial/data/2012/pdf/user_guide_public_use_aug2016.pdf)  
 
-1. Divide the data into two groups, by `OPEN24`.     
-2. Using replicate weights and final weights to compute the average number of employees and construct 95% confidence intervals, by Square footage category and Principal building activity, so we can control the size of the building and see if the difference is related to how the buildings are used.    
-3. Then compute the difference between the two groups.  
-4. Filter the observations to ensure a one-to-one comparison between the buildings that have the same sqaure footage category and same principal building activity but different status of `OPEN24`  
-5. Construct a table and a plot to illustrate this question.
+*  Using **jackknife** method, variances are estimated by:  
+
+<center>
+$\hat{V} (\hat{\theta}) = \sum_{r=1}^R \alpha_r(\hat{\theta}_r - \hat{\theta})^2$
+</center>
+  
+*  95% Confidence intervals are constructed using:  
+    
+<center>
+$\hat{\theta} \pm \Phi^{-1}(.975)\sqrt{\hat{V}(\hat{\theta})}$
+</center>
 
 **NOTE**:  
-*1. Buildings that have only one status of `OPEN24` have been removed from the final analysis, because we want a 1-1 comparison, and these buildings can not be used for computing difference.  
-2. Beware of the replicate weights when using them as denominator. They can be zero because of the jackknife method of estimating the standard error.*
+*1. Buildings that have only one status of `OPEN24` have been removed from the final analysis, because I want a 1-1 comparison, and these buildings can not be used for computing difference.*
 
 ### 3. Results
 
@@ -75,17 +79,15 @@ cap = paste0(
 DT::datatable(tab)
 ```
 
-#### PLOT: Difference of Average work forces. {.tabset .tabset-fade .tabset-pills}
+### Difference of Average work forces. {.tabset .tabset-fade .tabset-pills}
 
-For a better visualization of values, I divide the data into three subsets by square footage category, since values in some groups are significantly larger than the other.
-
-##### First Group
+#### First Group
 
 ```{r plot_1}
 knitr::include_graphics("./graph/1.png")
 ```
 
-##### Second Group
+#### Second Group
 
 ```{r plot_2}
 knitr::include_graphics("./graph/2.png")
@@ -93,13 +95,14 @@ knitr::include_graphics("./graph/2.png")
 
 ### 4. Conclusion / Discussion
 
-##### Conclusion
+The answer for the question is:
 
-From the table and graph above, we conclude that the answer for the question is: **It depends.**  
-When buildings are open 24 hours, *Laboratory, public assembly, strip shopping mall, vacant, and nonrefrigerated warehouse* have more work forces, while buildings used for *public order and safety, education, outpatient health care* have less work forces. Average work forces in scenarios like *service, retail or office* seems to be not related with whether buildings are open 24 hours or not.
+> **It depends.**
 
-And in some places, number of employees is related with square footage. For example, when the size of buildings are big, buildings hold activity for *religious worship* have more work forces if they are open 24 hours, but this do not happen when the size of buildings are small.
+When buildings are open 24 hours, **Laboratory, public assembly, strip shopping mall, vacant, and nonrefrigerated warehouse** have more work forces, while buildings used for **public order and safety, education, outpatient health care** have less work forces. Average work forces in scenarios like **service, retail or office** seems **NOT** to be related with open 24 hours or not.
 
-##### Discussion
+In some places, the average work forces are related with square footage. Big buildings hold activity for *religious worship* requires more work forces if they are open 24 hours, but this isn't true when buildings are small.
+  
+#### **LimTation**
 
-From my analysis, the average work forces seems to be affected by more factors. Things are much more complicated than we thought, the variances are large among many buildings, so the outcome may be incorrect unless we have more observations.
+In real life, the average work forces would be affected by more **factors**. Things are much more complicated than what data shows, the variances are large among many buildings, so the outcome may be incorrect unless we have more observations.
