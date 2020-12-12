@@ -1,5 +1,9 @@
 # Stats506_final_project
+
 This is my final project for stats 506 Fall 2020.
+For a brief review, please read the [write up](https://raw.githack.com/HongfanChen/Stats506_final_project/main/final_project_Hongfan.html).
+  
+**WARNING** : The **table** produced by `DT:datatable` sometimes **CANNOT** show on Github html viewer. So if you are looking for something more detailed, please download the `final_project_Hongfan.html` and open it locally.
 
 ## Question
 
@@ -10,11 +14,7 @@ This is my final project for stats 506 Fall 2020.
 * DATASET: 2012 US Commercial Building Energy Consumption Survey([CBECS](https://www.eia.gov/consumption/commercial/data/2012/index.php?view=microdata)) data. 
 
 For more information about data, please click [documentation](https://www.eia.gov/consumption/commercial/data/2012/pdf/user_guide_public_use_aug2016.pdf)  
-
-For a brief review, please read the [write up](https://raw.githack.com/HongfanChen/Stats506_final_project/main/final_project_Hongfan.html).  
-
-**WARNING** : The **table** produced by `DT:datatable` sometimes **CANNOT** show on Github html viewer. So if you are looking for something more detailed, please download the `final_project_Hongfan.html` and open it locally.
-
+  
 * **Variables**
 
 | Variable Name | Description |
