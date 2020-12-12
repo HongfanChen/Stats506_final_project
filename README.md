@@ -1,6 +1,6 @@
 # Stats506_final_project
 
-This is my final project for stats 506 Fall 2020.
+This is my final project for **STATS 506 Fall 2020**.
 For a brief review, please read the [write up](https://raw.githack.com/HongfanChen/Stats506_final_project/main/final_project_Hongfan.html).
   
 **WARNING** : The **table** produced by `DT:datatable` sometimes **CANNOT** show on Github html viewer. So if you are looking for something more detailed, please download the `final_project_Hongfan.html` and open it locally.
