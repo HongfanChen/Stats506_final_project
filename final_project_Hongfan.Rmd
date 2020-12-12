@@ -1,7 +1,7 @@
 ---
 title: "Final Project, <br>Stats 506, F20"
 author: "Hongfan Chen, chenhf@umich.edu"
-date: "2020/12/09"
+date: "2020/12/12"
 output: 
   html_document:
     code_folding: hide
